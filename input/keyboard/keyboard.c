@@ -6,6 +6,10 @@
 #define KEYBOARD_DATA_PORT 0x60
 #define KEYBOARD_STATUS_PORT 0x64
 
+char lastChar;
+
+int kbd_irq;
+
 unsigned char kbdus[128] =
 {
     0,  27, '1', '2', '3', '4', '5', '6', '7', '8',	/* 9 */
@@ -84,30 +88,28 @@ void keyboard_handler_c()
 
         if (!(scancode & 0x80))
         {
-
+            lastChar = kbdus[scancode];
+            kbd_irq = 1;
+            term_putc(lastChar);
         }
     }
 }
 
-char* read_line()
+char get_char()
 {
-  char* buffer = (char*)kmalloc(sizeof(char) * 255);
-  while(1)
-  {
-    while((inb(0x64) & 1) == 0)
+   while(kbd_irq != 1);
+   kbd_irq = 0;
+   return lastChar;
+}
+
+char* get_string()
+{
+    char* strbuffer = (char*)kmalloc(sizeof(char) * 255);
+    int index = 0;
+    while(get_char() != '\0' || get_char() != '\n')
     {
-      int key = inb(0x60);
-      if(!(key & 0x80))
-      {
-        switch (key)
-        {
-        case 0x1c:
-          return buffer;
-        
-        default:
-          buffer += kbdus[key];
-        }
-      }
+      strbuffer[index] = get_char();
+      index++;
     }
-  }
+    return strbuffer;
 }

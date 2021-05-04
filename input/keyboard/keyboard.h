@@ -7,4 +7,6 @@
 #define KEYBOARD_H	
 void keyboard_handler_c();
 void init_keyboard();
+char* get_string();
+char get_char();
 #endif

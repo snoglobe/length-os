@@ -12,6 +12,4 @@ gcc -m32 -std=gnu99 -ffreestanding -O2 -g -c libk/string.c -o string.o  &&
 gcc -m32 -std=gnu99 -ffreestanding -O2 -g -c input/keyboard/keyboard.c -o keyboard.o  &&
 gcc -m32 -std=gnu99 -ffreestanding -O2 -g -c heap/heap.c -o heap.o  &&
 gcc -m32 -std=gnu99 -ffreestanding -O2 -g -c heap/heapManager.c -o heapManager.o  &&
-gcc -m32 -std=gnu99 -ffreestanding -O2 -g -c paging/paging.c -o paging.o  &&
-gcc -m32 -std=gnu99 -ffreestanding -O2 -g -c paging/paging.s -o paging_s.o  &&
-ld -melf_i386 -T linker.ld start.o kernel.o video.o ports.o desc_tables.o gdt.o interrupt.o isr.o string.o keyboard.o heap.o heapManager.o paging.o paging_s.o -o length_os.elf -melf_i386
+ld -melf_i386 -T linker.ld start.o kernel.o video.o ports.o desc_tables.o gdt.o interrupt.o isr.o string.o keyboard.o heap.o heapManager.o -o length_os.elf -melf_i386
