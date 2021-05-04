@@ -1,0 +1,17 @@
+/.vscode
+/desc_tables.o
+/gdt.o
+/heap.o
+/heapManager.o
+/interrupt.o
+/isr.o
+/kernel.o
+/keyboard.o
+/length_os.elf
+/paging.o
+/paging_s.o
+/ports.o
+/ports_s.o
+/start.o
+/string.o
+/video.o
